@@ -3,7 +3,7 @@ package main
 import "testing"
 
 const (
-	State1 = iota
+	State1 = iota + 1  //按照uber的规范，最好是 itoa+1 开始
 	State2
 	State3
 	State4
