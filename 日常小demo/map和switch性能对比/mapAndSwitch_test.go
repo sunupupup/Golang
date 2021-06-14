@@ -1,5 +1,11 @@
 package main
 
+/*
+结果： switch比map快多了，但是观感就差多了，而且需要大量分支，代码复杂
+BenchmarkMap-8          23066143                49.8 ns/op
+BenchmarkSwitch-8       1000000000               0.738 ns/op
+*/
+
 import "testing"
 
 const (
