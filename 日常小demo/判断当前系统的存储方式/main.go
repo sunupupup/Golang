@@ -13,6 +13,7 @@ func main() {
 
 	//通过位运算即可实现
 	//大小端转换，这涉及到网络传输、文件存储，要保证读到的数据正确
+	//利用标准库encoding/binary
 	BigEndianAndLittleEndianByLibrary()
 }
 
@@ -52,6 +53,6 @@ func BigEndianAndLittleEndianByLibrary() {
 	binary.BigEndian.PutUint32(bs, value)
 	fmt.Println("转化为大端之后的byte数组:", bs)
 	fmt.Println("使用大端转化输出之后的结果", binary.BigEndian.Uint32(bs))
-	little := binary.LittleEndian.Uint32(bs)		//将大端的数组转化为小端的值
+	little := binary.LittleEndian.Uint32(bs) //将大端的数组转化为小端的值
 	fmt.Println("大端字节序使用小端输出结果：", little)
 }
