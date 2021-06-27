@@ -6,5 +6,6 @@ import (
 )
 type Config struct {
 	rest.RestConf
-	Transform zrpc.RpcClientConf // 手动代码
+	// RpcClientConf 是 rpc 客户端的配置, 用来解析在 yaml 中的配置
+	Transform zrpc.RpcClientConf 
 }

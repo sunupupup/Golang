@@ -1,8 +1,12 @@
 Name: shorturl-api
 Host: 0.0.0.0
 Port: 8888
+
+# 新增 Transform rpc 服务.
 Transform:
   Etcd:
+    #  Hosts 是 Transform.rpc 服务在 etcd 中的 value 值     2379是etcd注册中心的端口号
     Hosts:
       - localhost:2379  
+    # Key 是 Transform.rpc 服务在 etcd 中的 key 值
     Key: transform.rpc
