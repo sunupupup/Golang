@@ -26,6 +26,29 @@ type (
 	}
 )
 
+//增加注册，查询的功能
+type (
+	registerReq {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+	}
+
+	registerResp {
+		Msg string `json:"msg"`
+	}
+)
+
+type (
+	getonestudentReq {
+		Name string `form:"name"`
+	}
+
+	getonestudentResp {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+	}
+)
+
 service shorturl-api {
 	@server(
 		handler: ShortenHandler
@@ -36,4 +59,14 @@ service shorturl-api {
 		handler: ExpandHandler
 	)
 	get /expand(expandReq) returns(expandResp)
+	
+	@server(
+		handler:Register
+	)
+	post /register(registerReq) returns(registerResp)
+	
+	@server(
+		handler:GetOneStudent
+	)
+	get /getonestudent(getonestudentReq) returns(getonestudentResp)
 }

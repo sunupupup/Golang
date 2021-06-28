@@ -16,3 +16,21 @@ type ShortenReq struct {
 type ShortenResp struct {
 	Shorten string `json:"shorten"`
 }
+
+type RegisterReq struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
+type RegisterResp struct {
+	Msg string `json:"msg"`
+}
+
+type GetonestudentReq struct {
+	Name string `form:"name"`
+}
+
+type GetonestudentResp struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}

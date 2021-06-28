@@ -22,6 +22,16 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/expand",
 				Handler: ExpandHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/register",
+				Handler: RegisterHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/getonestudent",
+				Handler: GetOneStudentHandler(serverCtx),
+			},
 		},
 	)
 }
