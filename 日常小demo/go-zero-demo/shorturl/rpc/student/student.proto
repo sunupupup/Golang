@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package student;
+
+message registerReq {
+  string name = 1;
+  int64 age = 2;
+}
+message registerResp {
+  string msg = 1;
+}
+
+message getonestudentReq{
+  string name = 1;
+}
+message getonestudentResp{
+  string name = 1;
+  int64 age = 2;
+}
+
+service Student {
+  rpc register(registerReq) returns(registerResp);
+  rpc getonestudent(getonestudentReq) returns(getonestudentResp);
+}
