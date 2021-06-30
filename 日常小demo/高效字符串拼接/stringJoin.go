@@ -46,3 +46,20 @@ func methodBytesBuffer() {
 	}
 	_ = buf.String()
 }
+
+//append方法  zap里用的就是append的方式，默认分配1k大小
+func methodByteSliceAppend() {
+	var bytes = make([]byte, 0, 1024)
+	for i := 0; i < 100; i++ {
+		bytes = append(bytes, []byte("hello")...)
+	}
+	_ = string(bytes)
+}
+
+func methodByteSliceAppendNotAllocated() {
+	var bytes []byte
+	for i := 0; i < 100; i++ {
+		bytes = append(bytes, []byte("hello")...)
+	}
+	_ = string(bytes)
+}
