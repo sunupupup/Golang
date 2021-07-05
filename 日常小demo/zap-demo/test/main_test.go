@@ -18,8 +18,8 @@ func BenchmarkPrintByBuf(b *testing.B) {
 	buf := bufio.NewWriter(os.Stdout)
 	for i := 0; i < b.N; i++ {
 		buf.Write([]byte(strconv.Itoa(1)))
+		buf.Flush()
 	}
-	buf.Flush()
 }
 
 /*
