@@ -26,6 +26,8 @@ func (this *BitSet) Set(bitIndex uint64) {
 	//利用或运算，将指定位置置为1
 	//先计算出bitindex在哪一个字
 	wIndex := this.wordIndex(bitIndex)
+	//如果要扩容的话
+	this.expandTo(wIndex)
 	//将指定位置设为1
 	(*this)[wIndex] |= uint64(0x01) << (bitIndex % Words_Per_Size) //对64取余
 }
@@ -34,11 +36,13 @@ func (this *BitSet) Clear(bitIndex uint64) {
 	wIndex := this.wordIndex(bitIndex)
 	//将指定位置设为0  先对mask非运算，再两者与运算
 	//这里要考虑越界的问题
-	(*this)[wIndex] &= (^(uint64(0x01) << (bitIndex % Words_Per_Size))) //对64取余
+	if wIndex < len(*this) {
+		(*this)[wIndex] &= (^(uint64(0x01) << (bitIndex % Words_Per_Size))) //对64取余
+	}
 }
 func (this *BitSet) Get(bitIndex uint64) bool {
 	wIndex := this.wordIndex(bitIndex)
-	return (((*this)[wIndex]) & (uint64(0x01) << (bitIndex % Words_Per_Size))) != 0
+	return (wIndex < len(*this)) && (((*this)[wIndex] & (uint64(0x01) << (bitIndex % Words_Per_Size))) != 0)
 }
 
 //统计有多少1
@@ -55,9 +59,9 @@ func (this *BitSet) Count() uint64 {
 	return ret
 }
 
-//bitIndex定位成wordIndex 暂时不考虑扩容的问题
-func (this *BitSet) wordIndex(bitIndex uint64) uint64 {
-	return uint64(bitIndex >> Address_Bits_Per_Word)
+//bitIndex定位成wordIndex
+func (this *BitSet) wordIndex(bitIndex uint64) int {
+	return int(bitIndex >> Address_Bits_Per_Word)
 }
 
 //以二进制串的格式打印bitMap内容
@@ -75,4 +79,18 @@ func (this *BitSet) ToString() string {
 		}
 	}
 	return strAppend.String()
+}
+
+//扩容:每次扩容两倍
+func (this *BitSet) expandTo(wordIndex int) {
+	wordsRequired := wordIndex + 1
+	if len(*this) < wordsRequired {
+		if wordsRequired < 2*len(*this) {
+			wordsRequired = 2 * len(*this)
+		}
+		newCap := make([]uint64, wordsRequired, wordsRequired) //扩容为两倍
+		copy(newCap, *this)                                    //拷贝内容
+		(*this) = newCap                                       //覆盖
+	}
+
 }
