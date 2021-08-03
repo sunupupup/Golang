@@ -1,0 +1,2 @@
+用于练习关于go的UT的内容
+包括testing标准库，gomock、testify等第三方库
