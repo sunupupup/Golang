@@ -53,10 +53,3 @@ func main() {
 		time.Sleep(38 * time.Millisecond)
 	}
 }
-
-//初始化终端窗口
-func play(index int) {
-
-	//
-
-}
