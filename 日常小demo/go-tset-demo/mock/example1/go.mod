@@ -1,4 +1,4 @@
-module demo1
+module mock
 
 go 1.15
 
